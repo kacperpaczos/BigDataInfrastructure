@@ -1,0 +1,2 @@
+[kafka]
+localhost ansible_connection=local ansible_user="kacper" ansible_become_pass="bigdata123"

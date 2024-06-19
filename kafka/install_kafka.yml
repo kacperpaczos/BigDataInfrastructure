@@ -1,0 +1,19 @@
+---
+- name: Install Apache Kafka on Docker server
+  hosts: all
+  become: yes
+  tasks:
+    - name: Copy docker-compose.yml to remote
+      copy:
+        src: ./docker-compose.yml
+        dest: /home/{{ ansible_user }}/docker-compose.yml
+
+    - name: Ensure Docker Compose is installed
+      apt:
+        name: docker-compose
+        state: present
+
+    - name: Start Kafka and Kafka UI using Docker Compose
+      command: docker-compose -f /home/{{ ansible_user }}/docker-compose.yml up -d
+      args:
+        chdir: /home/{{ ansible_user }}
